@@ -232,7 +232,13 @@ class Database
 		{
 			foreach($where as $key=>$value)
 			{
-				$where_clause .= ' and ' . $key . '=' . "'{$this->escape($value)}'";
+				if( strpos($key, '>' ) > 0 || strpos($key, '<' ) > 0 || strpos($key, '=' ) > 0)
+				{
+					$where_clause .= ' and ' . $key . "'{$this->escape($value)}'";
+				}
+				else{
+					$where_clause .= ' and ' . $key . '=' . "'{$this->escape($value)}'";
+				}
 			}
 		}
 		else
