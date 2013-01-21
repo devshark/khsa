@@ -1,0 +1,62 @@
+		body{
+			background-attachment: fixed;
+			background-image: url("../images/bg.jpg");
+		}
+		body{
+			font-family: Arial,Helvetica,sans-serif;
+			font-size: 12px;
+			color:#382D2C;
+		}
+		div#body{
+			width:820px;
+			margin:auto;
+		}
+		div#header{
+			width:100%;
+		}
+		ul.ul-menu{
+			list-style-type:none;
+			width:100%;
+			border:0px solid #000000;
+			white-space: nowrap;
+		}
+		ul.ul-menu li a:hover{
+			text-transform:none;
+		}
+		ul.ul-menu li a{
+			color:#000;
+		}
+		ul.ul-menu.five li{
+			width: 18%;
+		}
+		ul.ul-menu.six li{
+			width: 15%;
+		}
+		ul.ul-menu li{
+			width: 22%;
+			display: inline-block;
+			text-align:center;
+			font-size:15px;
+			font-weight:bolder;
+			color:#000;
+		}
+		nav#sidebar{
+			float:left;
+			width:25%;
+			border: 1px solid transparent;
+			margin: 0 5px 5px 0;
+			padding: 1px;
+		}
+		div#content{
+			float:right;
+			width:70%;
+			border: 1px solid #0066FF;
+			margin: 0 5px 5px 0;
+			padding: 10px;
+		}
+		div#sidebar-title{
+			background-color:#0066FF;
+		}
+		nav#sidebar .box{
+			margin-bottom:10px;
+		}
