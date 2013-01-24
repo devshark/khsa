@@ -1,7 +1,7 @@
 <?php 	
 	$host 		= "localhost";
 	$user 		= "root";
-	$pass	 	= "admin";
+	$pass	 	= "pass";
 	// $dbase		= "evoting";
 	$dbase		= "khsa";
 	// $dbase2		= "sisdb";
