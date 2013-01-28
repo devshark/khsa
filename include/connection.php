@@ -1,10 +1,10 @@
 <?php 	
 	$host 		= "localhost";
 	$user 		= "root";
-	$pass	 	= "pass";
-	// $dbase		= "evoting";
-	$dbase		= "khsa";
-	// $dbase2		= "sisdb";
+	$pass	 	= "admin";
+	$dbase		= "evoting";
+	//$dbase		= "khsa";
+	$dbase2		= "sisdb";
 	$title		= "KHSA INTEGRATED SYSTEM";
 	
 	$con = mysql_connect($host,$user,$pass) or die("Could not connect: ".mysql_error());

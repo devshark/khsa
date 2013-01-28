@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 // require_once('conn/connect.php');
 require_once('classes/class.database.php');
 class Authenticate
@@ -100,12 +100,12 @@ class Authenticate
 		}
 	}
 }
-
+// exception
 class AuthenticateException extends Exception
 {
 	public function __construct($message){ parent::__construct($message); }
 }
-
+// Admin Class
 class Admin
 {
 	public $is_admin = false;
@@ -115,7 +115,7 @@ class Admin
 	public $new = true;
 	
 	protected $conn;
-	public static $TABLENAME = 'tblclient';
+	public static $TABLENAME = 'tbllogin';
 	
 	public function __construct($username = null)
 	{
@@ -165,8 +165,8 @@ class Admin
 			else
 			{
 				$this->conn->insert(self::TABLENAME,
-					array('username'=>$this->Client_ID,
-					'Password'=>$this->password,
+					array('username'=>$this->username,
+					'Password'=>$this->Password,
 					'Account_Type'=>$this->type));
 			}
 		}
@@ -174,34 +174,34 @@ class Admin
 		else
 		{
 			$this->conn->update(self::TABLENAME,
-				array('pwd'=>$this->pwd,
+				array('Password'=>$this->Password,
 				'scope'=>$this->scope),
-				array('Client_ID'=>$this->Client_ID));
+				array('username'=>$this->username));
 		}
 	}
 	
 	public static function get_list($order = 'asc')
 	{
 		$db = new Database();
-		return $db->get(Authenticate::$TABLENAME)->result();
+		return $db->get(Admin::$TABLENAME)->result();
 	}
 	
 	public function delete()
 	{
-		if($this->Client_ID != null)
+		if($this->username != null)
 		{
-			$sql = "delete from ".self::TABLENAME." where Client_ID='{$this->Client_ID}';";
+			$sql = "delete from ".self::TABLENAME." where username='{$this->username}';";
 			$this->conn->query($sql);
 		}
 	}
 	
-	public static function isValid($Client_ID,$pwd)
+	public static function isValid($username,$Password)
 	{
 		try{
 			$db = new Database();
-			return $db->get_where(Authenticate::$TABLENAME,
-				array('Client_ID'=>$Client_ID,
-				'pwd'=>$pwd))->num_rows() == 1;
+			return $db->get_where(Admin::$TABLENAME,
+				array('username'=>$username,
+				'Password'=>$Password))->num_rows() == 1;
 		}catch(Exception $e)
 		{
 			throw new AuthenticateException($e.getMessage());

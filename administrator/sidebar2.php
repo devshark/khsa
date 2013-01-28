@@ -1,12 +1,8 @@
-<?php 
-   require ("../include/connection.php");
-?>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-<title><?php echo $title ?></title>
+<meta charset="utf-8" />
+<title><?php echo $title ?: '' ?></title>
 </head>
 
 <body>
@@ -17,7 +13,7 @@
 		$sidebar = "";
 		if (isset($_GET['page'])){$sidebar = $_GET['page'];}{?>
 		<div id="sidebar-title">CONTACT INFO</div>
-		<div id="sidebar-inside" align="center" ><img src="../images/khsa_logo.png" width="155px" align="middle" title="Pateros Technological College"/><br />
+		<div id="sidebar-inside" align="center" ><img src="images/khsa_logo.png" width="155px" align="middle" title="KING HENRY SECURITY AGENCY, INC."/><br />
         <font style="text-align:center; font-size:12px; font-weight:bold">
         <center>KING HENRY SECURITY AGENCY, INC.</center></font>
         <font style="font-size:12px">
@@ -28,12 +24,6 @@
         </div>
 
 <?php }?>
-
-
-
-
-
-
 </div>
 </body>
 </html>

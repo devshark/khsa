@@ -1,37 +1,31 @@
 <?php 
 	session_start();
-	require_once ('classes/class.database.php');
+	error_reporting(E_WARNING || E_ERROR);
+	require_once ('classes/class.authenticate.php');
 	$header = "images/banner.png"; //insert path here for banner ex. "images/apache.png"
 	$title = 'KHSIA Admin | Log In';
-	
-	$username = '';
-	$password = '';
-	if(isset($_POST['username'])){ $username = $_POST['username']; }
-	if(isset($_POST['password'])){ $password = $_POST['password']; }
-	
+	$error_message = '';
+	$username = $_POST['username'] ?: '';
+	$password = $_POST['password'] ?: '';
+
 	if(isset($_POST['log-in'])){
 		if($username != "" and $password != ""){
-			$password = md5($password);
-			$admin_query = mysql_query("select * from admin");
-			while($admin = mysql_fetch_object($admin_query)){
-				if($admin->username == $username and $admin->password == $password){
-					$_SESSION['userid'] = $admin->id;
-					$_SESSION['time-in'] = time();
-					header("location:main.php");
-				}else{
-					if($admin->username != $username){
-						$error_message = "Login Failed!";	
-					}
-				}
-			}				
+			if(Admin::isValid($username,$password) )
+			{
+				$_SESSION['adminid'] = $username;
+				header('location:admin.index.php');
+				echo 'yey!';
+			}
+			else{
+				$error_message = "Username and password does not match!";
+			}
 		}else{
-			$error_message = "!";
-			if(isset($error_message)){ $error_message = "Please don't leave an empty field/s!"; }
+			$error_message = "Please don't leave an empty field/s!";
 		}
 	}
-	
-	if(isset($_SESSION['userid'])){
-		header("location:main.php");
+
+	if(isset($_SESSION['adminid'])){
+		header("location:admin.index.php");
 	}
 ?>
 
@@ -73,7 +67,7 @@
 					</td>
 				</tr>
 				<tr><td colspan="2"><br /></td></tr>
-				<form method="post" action="">
+				<form method="post" action="admin.php">
 				<tr>
 					<td align="right" width="120px" style="padding-right:10px;">Username</td>
 					<td><input type="text" name="username" value="<?php echo $username;?>" /></td>

@@ -154,7 +154,7 @@ $home = ("location:main.php");
 								include "home.php";
 							}else if($home == ""){
 								include "home.php";
-							}					
+							}
 						?>
 					</td>
 				</tr>
