@@ -3,7 +3,8 @@ require_once('classes/class.database.php');
 class Guard 
 {
 	protected $db = null;
-	const TABLENAME = 'tblemployee';
+	// const TABLENAME = 'tblemployee';
+	const TABLENAME = 'tblguards';
 	
 	function __construct()
 	{
@@ -68,7 +69,12 @@ class Guard
 	{
 		$db = new Database();
 		return $db->query('select distinct educ_attainment educ from '.Guard::TABLENAME)->result();
-	}	
+	}
+	
+	public function __tostring()
+	{
+		return var_dump($this);
+	}
 }
 
 class GuardException extends Exception{}

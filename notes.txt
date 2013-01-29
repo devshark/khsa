@@ -1,0 +1,18 @@
+lipat ka muna sa branch develop
+
+$ git checkout develop
+
+para malaman kung may nagbago, 
+$ git status
+
+para gawan ng checkpoint ung chages mo,
+$ git commit -am "message"
+
+dagdag
+$ git add <filename>
+
+upload sa github 
+$ git push origin develop
+
+download from github
+$ git pull origin develop
