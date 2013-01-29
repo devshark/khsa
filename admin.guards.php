@@ -1,6 +1,6 @@
 <?php 
 	require 'pages/admin.redirect.php';
-	require_once('classes/class.client.php');
+	require_once('classes/class.guards.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -97,21 +97,33 @@
 		</td>
 		</tr>
 		<tr style="width:100%;" align="center">
-		<td width="100%">
+		<td width="100%" style="overflow:auto;">
 			<table id="jquery" cellpadding=5 border=1 cellspacing=0 style="width:500px; background-color:transparent; border:0px  #000 solid; padding:5px;text-align:center;">
 				<thead>
 					<tr>
-					<th>Client Name</th><th>Address</th><th>Contact num</th><th>Contact Person</th><th>Owner</th>
+					<th>First Name</th>
+					<th>Last Name</th>
+					<th>Middle Initial</th>
+					<th>Address</th>
+					<th>City</th>
+					<th>Contact Number</th>
+					<th>Date Of Birth</th>
+					<th>Civil Status</th>
+					<th>Educational Status</th>
+					<th>License Number</th>
+					<th>License Expiry Date</th>
 					</tr>
 				</thead>
 				<tbody>
-					<?php foreach(Client::get_list() as $client){?>
-					<tr id="<?php echo $client->Client_ID;?>">
-					<td var="Client_Name"><span><?php echo $client->Client_Name;?></span></td>
-					<td var="Address"><span><?php echo $client->Address;?></span></td>
-					<td var="Contact_No"><span><?php echo $client->Contact_No;?></span></td>
-					<td var="Contact_Person"><span><?php echo $client->Contact_person;?></span></td>
-					<td var="Owner"><span><?php echo $client->Owner;?></span></td>
+					<?php foreach(Guard::get_list() as $guard){?>
+					<tr id="<?php echo $guard->Client_ID;?>">
+					<td var="first_name"><span><?php echo $guard->first_name;?></span></td>
+					<td var="last_name"><span><?php echo $guard->last_name;?></span></td>
+					<td var="middle_name"><span><?php echo $guard->middle_name;?></span></td>
+					<td var="address"><span><?php echo $guard->address;?></span></td>
+					<td var="Contact_No"><span><?php echo $guard->Contact_No;?></span></td>
+					<td var="Contact_Person"><span><?php echo $guard->Contact_person;?></span></td>
+					<td var="Owner"><span><?php echo $guard->Owner;?></span></td>
 					</tr>
 					<?php } ?>
 				</tbody>
