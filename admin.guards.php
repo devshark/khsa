@@ -1,6 +1,7 @@
 <?php 
 	require 'pages/admin.redirect.php';
 	require_once('classes/class.guards.php');
+	
 ?>
 <!DOCTYPE html>
 <html lang="en">
