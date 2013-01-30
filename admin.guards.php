@@ -18,13 +18,13 @@
 			$('button#addnew')
 			.click(function(){
 				$('<div>')
-				.attr('id','newclient')
-				.load('form.newclient.html')
+				.attr('id','newguard')
+				.load('form.newguard.html')
 				.dialog({
-					'title':'Add New Client',
+					'title':'Add New Guard',
 					'buttons':{
 						'OK':function(e){
-							$('div#newclient form').trigger('submit');
+							$('div#newguard form').trigger('submit');
 							// $(this).dialog('close');
 						}
 					},
@@ -32,17 +32,17 @@
 				});
 			});
 		});
-		$(document).on('submit','div#newclient form',
+		$(document).on('submit','div#newguard form',
 			function(event){
 				var $form = $(this);
-				$.post('newclient.php',
+				$.post('newguard.php',
 				$form.serialize(),
 				function(result){
 					result = $.parseJSON(result);
 					if(result.status == 'success'){
 						alert(result.message);
-						$form.parent('div#newclient').remove();
-						window.location.href = 'admin.client.php';
+						$form.parent('div#newguard').remove();
+						window.location.href = 'admin.guards.php';
 					}else{
 						alert(result.message);
 					}
