@@ -51,10 +51,6 @@
 			}
 		);
 		
-		$(document).on('click','table#jquery tbody td.educ input[type=text]',
-			function(event){
-			// event.stopPropagation();
-		});
 		$(document).on('focus','table#jquery tbody td.date input[type=text]',
 			function(event){
 			// event.stopPropagation();
@@ -94,11 +90,19 @@
 				function(data){
 					data = $.parseJSON(data);
 					// alert(data.status);
+					if(data.status=='success'){
+						var span;
+						if( $('form#stat').has($this) ){
+							// console.log($this);
+							span = $('<span></span>').text( $('option:selected',$this).text() );
+						}else{
+							span = $('<span></span>').text( $this.val() );
+						}
+						$this.parents('td').first().prepend(span);
+						$this.parent('form').remove();
+					}
 				});
 				
-				var span = $('<span></span>').text( $this.val() );
-				$this.parents('td').first().prepend(span);
-				$this.parent('form').remove();
 			},200);
 			// validationTimer();
 		});
@@ -123,10 +127,20 @@
 		{
 			// console.log(options);
 			var td = object.parent('td');
-			var form = $('<form>').prop({'id':'stat'}).load(options.url+'?id='+options.statusid);
-			var hidden = $('<input/>').prop({'type':'hidden','name':'id','value':options.id});
-			form.append(hidden);
-			object.remove(); td.prepend(form); form.children('select').focus();
+			var form;
+			$.get(options.url,
+				{id:options.statusid},
+				function(html){
+					form = $('<form>').prop({'id':'stat'}).html(html);
+					var hidden = $('<input/>').prop({'type':'hidden','name':'id','value':options.id});
+					form.append(hidden);
+					object.remove(); td.prepend(form); form.children('select').focus();
+				}
+			)
+			// var form = $('<form>').prop({'id':'stat'}).load(options.url+'?id='+options.statusid);
+			// var hidden = $('<input/>').prop({'type':'hidden','name':'id','value':options.id});
+			// form.append(hidden);
+			// object.remove(); td.prepend(form); form.children('select').focus();
 		}
 		
 		</script>
