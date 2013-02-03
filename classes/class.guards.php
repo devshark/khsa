@@ -1,5 +1,5 @@
 <?php
-require_once('classes/class.database.php');
+require_once('classes/class.status.php');
 class Guard 
 {
 	protected $db = null;
@@ -38,12 +38,13 @@ class Guard
 		{
 			$where['educational_attainment'] = $post['educational_attainment'];
 		}
-		if($post['sign'] != '--')
+		if( preg_match('/^\d+$/',$post['DOBfrom']) )
 		{
-			if( preg_match('/^\d+$/',$post['age']) )
-			{
-				$where['FLOOR(DATEDIFF(CURDATE(),date_of_birth)/365) '.$post['sign']] = (int)$post['age'];
-			}
+			$where['FLOOR(DATEDIFF(CURDATE(),date_of_birth)/365) >'] = (int)$post['DOBfrom'];
+		}
+		if( preg_match('/^\d+$/',$post['DOBto']) )
+		{
+			$where['FLOOR(DATEDIFF(CURDATE(),date_of_birth)/365) <'] = (int)$post['DOBto'];
 		}
 		if( count($where) >0 )
 		{
@@ -73,8 +74,7 @@ class Guard
 	
 	public static function get_educs()
 	{
-		$db = new Database();
-		return $db->query("select status from tblstatus where type='educ'")->result();
+		return Status::educ_status();
 	}
 	
 	public function __tostring()

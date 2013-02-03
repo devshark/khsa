@@ -119,11 +119,11 @@ class Admin
 	
 	public function __construct($username = null)
 	{
-		$conn = new Database();
+		$this->conn = new Database();
 		$this->new = true;
 		if($username != null)
 		{
-			$res = $this->conn->get_where(self::TABLENAME,
+			$res = $this->conn->get_where(self::$TABLENAME,
 				array('Username'=>$username));
 			if($res->num_rows() > 0)
 			{

@@ -32,6 +32,9 @@
 		ul.ul-menu.six li{
 			width: 15%;
 		}
+		ul.ul-menu.three li{
+			width: 30%;
+		}
 		ul.ul-menu li{
 			width: 22%;
 			display: inline-block;

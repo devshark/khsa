@@ -1,6 +1,7 @@
 <?php 
 	session_start();
 	error_reporting(E_WARNING || E_ERROR);
+	// error_reporting(E_ALL);
 	require_once ('classes/class.authenticate.php');
 	$header = "images/banner.png"; //insert path here for banner ex. "images/apache.png"
 	$title = 'KHSIA Admin | Log In';
@@ -13,7 +14,14 @@
 			if(Admin::isValid($username,$password) )
 			{
 				$_SESSION['adminid'] = $username;
-				header('location:admin.index.php');
+				require_once('classes/class.audit.php');
+				Audit::audit_log($_SESSION['adminid'], 'User has logged in');
+				$admin = new Admin($username);
+				if( $admin->type == 'admin' ){
+					header('location:admin.index.php');
+				}elseif($admin->type == 'logistic'){
+					header('location:logistics.inventory.php');
+				}
 				echo 'yey!';
 			}
 			else{

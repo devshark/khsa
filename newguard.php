@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 if( count($_POST) > 0 )
 {
 	if( empty($_POST['last_name']) ){ die( json_encode( array( 'status'=>'failed', 'message'=>'Last name required.') ) ); }
@@ -22,6 +22,9 @@ if( count($_POST) > 0 )
 	);
 	
 	$id = $db->last_insert_id();
+	
+	require_once('classes/class.audit.php');
+	Audit::audit_log($_SESSION['adminid'], 'Added new client #'.$id);
 	
 	$db->insert('tblrequirements',array('guard_id'=>$id));
 	

@@ -1,6 +1,8 @@
 <?php 
 	require 'pages/admin.redirect.php';
 	require_once('classes/class.client.php');
+	require_once('classes/class.audit.php');
+	Audit::audit_log($_SESSION['adminid'], 'Went to Admin Client page');
 ?>
 <!DOCTYPE html>
 <html lang="en">

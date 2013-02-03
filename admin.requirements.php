@@ -2,6 +2,8 @@
 	require 'pages/admin.redirect.php';
 	require_once('classes/class.requirements.php');
 	// require_once('classes/class.status.php');
+	require_once('classes/class.audit.php');
+	Audit::audit_log($_SESSION['adminid'], 'Went to Guard requirements page');
 ?>
 <!DOCTYPE html>
 <html lang="en">

@@ -1,8 +1,7 @@
 <?php 
-	ini_set('display_errors','Off');
-	// error_reporting(0);
-	error_reporting(E_ALL);
 	include 'pages/admin.redirect.php';
+	require_once('classes/class.audit.php');
+	Audit::audit_log($_SESSION['adminid'], 'Went to Admin Main page');
 ?>
 <!DOCTYPE html>
 <html lang="en">
