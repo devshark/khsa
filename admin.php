@@ -10,19 +10,36 @@
 	$password = $_POST['password'] ?: '';
 
 	if(isset($_POST['log-in'])){
+		// echo 'post';
 		if($username != "" and $password != ""){
+			// echo ' upass';
 			if(Admin::isValid($username,$password) )
 			{
+				// echo ' valid';
 				$_SESSION['adminid'] = $username;
 				require_once('classes/class.audit.php');
 				Audit::audit_log($_SESSION['adminid'], 'User has logged in');
 				$admin = new Admin($username);
-				if( $admin->type == 'admin' ){
+				Audit::audit_log($_SESSION['adminid'], $admin->type);
+				// echo $admin->type;
+				if( $admin->type == 'admin' )
+				{
+					// echo ' ad';
 					header('location:admin.index.php');
-				}elseif($admin->type == 'logistic'){
-					header('location:logistics.inventory.php');
+					die();
 				}
-				echo 'yey!';
+				elseif($admin->type == 'logistic')
+				{
+					// echo ' log';
+					header('location:logistics.inventory.php');
+					die();
+				}
+				else if($admin->type == 'operation')
+				{
+					// echo ' op';
+					header('location:op.index.php');
+					die();
+				}
 			}
 			else{
 				$error_message = "Username and password does not match!";
@@ -37,10 +54,10 @@
 	}
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<meta charset="utf-8" />
 <title><?php echo $title; ?></title>
 <link rel="stylesheet" type="text/css" href="css/adminstyle.css"/>
 </head>
