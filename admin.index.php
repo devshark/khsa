@@ -1,6 +1,7 @@
 <?php 
 	ini_set('display_errors','Off');
-	error_reporting(0);
+	// error_reporting(0);
+	error_reporting(E_ALL);
 	include 'pages/admin.redirect.php';
 ?>
 <!DOCTYPE html>

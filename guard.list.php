@@ -1,5 +1,8 @@
 <?php
 session_start();
+ini_set('display_errors','On');
+// error_reporting(E_ERROR);
+error_reporting(E_ALL);
 if( ! isset($_SESSION['clientid']) )
 {
 	header('location:index.php');
@@ -23,16 +26,17 @@ if( ! isset($_SESSION['clientid']) )
 			<h3>&nbsp;&nbsp;&nbsp;&nbsp;Below is the List of Guards:</h3><br/>
 			<?php
 			include_once('classes/class.guards.php');
+			include_once('classes/class.status.php');
 			?>
 			<form method="post" action="guard.list.php">
 				<p>
 					Location : 
-					<select name="City">
+					<select name="address_city">
 					<option>--</option>
 					<?php
 					foreach(Guard::get_locations() as $row)
 					{ ?>
-					<option><?php echo $row->City;?></option>
+					<option><?php echo $row->address_city;?></option>
 					<?php
 					}
 					?>
@@ -48,24 +52,27 @@ if( ! isset($_SESSION['clientid']) )
 					}
 					?>
 					</select>
-					&nbsp;Age :
-					<select name="sign">
+					<br/><br/>Age :&nbsp;
+					<input type="text" name="DOBfrom" size=2 maxlength="2" />&nbsp;
+					To&nbsp;
+					<input type="text" name="DOBto" size=2 maxlength="2" />
+					<!--<select name="sign">
 					<option>--</option>
 					<option>=</option>
 					<option>></option>
 					<option><</option>
 					</select>&nbsp;<input type="text" name="age" size=2 maxlength=2 />
 					<br/><br/>Educational Attainment :
-					<select name="educ_attainment">
+					<select name="educational_attainment">
 					<option>--</option>
 					<?php
 					foreach(Guard::get_educs() as $row)
 					{ ?>
-					<option><?php echo $row->educ;?></option>
+					<option><?php echo $row->status;?></option>
 					<?php
 					}
 					?>
-					</select>
+					</select>-->
 				</p>
 				
 				<p><input type="submit" name="btnSearch" value="Search" /></p>
@@ -79,7 +86,7 @@ if( ! isset($_SESSION['clientid']) )
 					<th>Gender</th>
 					<th>Age</th>
 					<th>Educational Attainment</th>
-					<th>Date Of Birth</th>
+					<!--<th>Date Of Birth</th>-->
 					</tr>
 				</thead>
 				<tbody>
@@ -95,15 +102,15 @@ if( ! isset($_SESSION['clientid']) )
 			foreach($rows as $row)
 			{
 				$now = new DateTime(date('Y-m-d h:i:s'));
-				$ref = new DateTime($row->DOB);
+				$ref = new DateTime($row->date_of_birth);
 				$diff = $now->diff($ref);
 				echo '<tr>';
-				echo '<td>' . $row->Last_Name . ' ' . $row->First_Name . '</td>';
-				echo '<td>' . $row->City . '</td>';
+				echo '<td>' . $row->last_name . ' ' . $row->first_name . '</td>';
+				echo '<td>' . $row->address_city . '</td>';
 				echo '<td>' . $row->Gender . '</td>';
 				echo '<td>' . $diff->y . '</td>';
-				echo '<td>' . $row->educ_attainment . '</td>';
-				echo '<td>' . date('Y-m-d', strtotime( $row->DOB )) . '</td>';
+				echo '<td>' . Status::get_status_name( $row->educational_attainment )->status . '</td>';
+				// echo '<td>' . date('Y-m-d', strtotime( $row->date_of_birth )) . '</td>';
 				echo '</tr>';
 			}
 			?>

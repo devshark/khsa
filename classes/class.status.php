@@ -32,4 +32,9 @@ class Status
 			array('id'=>$id))->row();
 	}
 	
+	// public function__tostring()
+	// {
+		// return $
+	// }
+	
 }

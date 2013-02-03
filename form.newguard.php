@@ -13,6 +13,10 @@
 	<td><input type="text" name="first_name" /></td>
 	</tr>
 	<tr>
+	<td>Gender : </td>
+	<td></td>
+	</tr>
+	<tr>
 	<td>Address : </td>
 	<td><input type="text" name="address" /></td>
 	</tr>
@@ -22,27 +26,27 @@
 	</tr>
 	<tr>
 	<td>Mobile Number : </td>
-	<td><input type="text" name="mobile_num" /></td>
+	<td><input type="text" maxlength="11" name="mobile_num" /></td>
 	</tr>
 	<tr>
 	<td>Date of Birth : </td>
-	<td><input type="text" name="date_of_birth" /></td>
+	<td><input type="text" class="datepicker" name="date_of_birth" /></td>
 	</tr>
 	<tr>
 	<td>Status : </td>
-	<td><input type="text" name="status" /></td>
+	<td><?php include_once('ajax.civil.status.php'); ?></td>
 	</tr>
 	<tr>
 	<td>Educational Attainment : </td>
-	<td><input type="text" name="educational_attainment" /></td>
+	<td><?php include_once('ajax.educ.status.php'); ?></td>
 	</tr>
 	<tr>
 	<td>License Number : </td>
-	<td><input type="text" name="license_num" /></td>
+	<td><input type="text" maxlength="15" name="license_num" /></td>
 	</tr>
 	<tr>
 	<td>License Expiry Date : </td>
-	<td><input type="text" name="license_expiry_date" /></td>
+	<td><input class="datepicker" type="text" name="license_expiry_date" /></td>
 	</tr>
 </table>
 </form>

@@ -16,27 +16,33 @@ class Guard
 		return $this->db->get_where($this->tablename,$filters)->result();
 	}
 	
+	public function get($id)
+	{
+		return $this->db->get_where(Guard::TABLENAME,
+			array('id'=>$id))->row();
+	}
+	
 	public static function filter($post)
 	{
 		$where = array();
 		$db = new Database();
-		if($post['City'] != '--')
+		if($post['address_city'] != '--')
 		{
-			$where['City'] = $post['City'];
+			$where['address_city'] = $post['address_city'];
 		}
 		if($post['Gender'] != '--')
 		{
 			$where['Gender'] = $post['Gender'];
 		}
-		if($post['educ_attainment'] != '--')
+		if($post['educational_attainment'] != '--')
 		{
-			$where['educ_attainment'] = $post['educ_attainment'];
+			$where['educational_attainment'] = $post['educational_attainment'];
 		}
 		if($post['sign'] != '--')
 		{
 			if( preg_match('/^\d+$/',$post['age']) )
 			{
-				$where['FLOOR(DATEDIFF(CURDATE(),DOB)/365) '.$post['sign']] = (int)$post['age'];
+				$where['FLOOR(DATEDIFF(CURDATE(),date_of_birth)/365) '.$post['sign']] = (int)$post['age'];
 			}
 		}
 		if( count($where) >0 )
@@ -56,7 +62,7 @@ class Guard
 	public static function get_locations()
 	{
 		$db = new Database();
-		return $db->query('select distinct City from '.Guard::TABLENAME)->result();
+		return $db->query('select distinct address_city from '.Guard::TABLENAME)->result();
 	}
 	
 	public static function get_genders()
@@ -68,7 +74,7 @@ class Guard
 	public static function get_educs()
 	{
 		$db = new Database();
-		return $db->query('select distinct educ_attainment educ from '.Guard::TABLENAME)->result();
+		return $db->query("select status from tblstatus where type='educ'")->result();
 	}
 	
 	public function __tostring()
