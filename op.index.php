@@ -36,7 +36,7 @@
 		</tr>
 		<tr style="width:100%;" align="center">
 		<td width="100%">
-			SHATTAAAPP
+		
 		</td>
 		</tr>
 		<tr>

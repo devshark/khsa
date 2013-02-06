@@ -23,14 +23,19 @@ if( ! isset($_SESSION['clientid']) )
 		<?php include_once('static/header.php');?>
 		<?php include_once('static/nav.php');?>
 			<div id="content">
-			<h3>&nbsp;&nbsp;&nbsp;&nbsp;Below is the List of Guards:</h3><br/>
+			<table width="300" align="center" class = "home_page" >
+			<tr>
+			<td colspan="3" align="center" style="font:Verdana, Geneva, sans-serif; font-size:18px;  color:#0000FF;"><h3>List of Security Guards</h3>
+		</td>
+		</tr>
+			<h4> You can search it by:</h4>
 			<?php
 			include_once('classes/class.guards.php');
 			include_once('classes/class.status.php');
 			?>
 			<form method="post" action="guard.list.php">
 				<p>
-					Location : 
+					<b>Location : </b>
 					<select name="address_city">
 					<option>--</option>
 					<?php
@@ -41,7 +46,7 @@ if( ! isset($_SESSION['clientid']) )
 					}
 					?>
 					</select>&nbsp;
-					Gender : 
+					<b>Gender : </b>
 					<select name="Gender">
 					<option>--</option>
 					<?php
@@ -52,9 +57,9 @@ if( ! isset($_SESSION['clientid']) )
 					}
 					?>
 					</select>
-					<br/><br/>Age :&nbsp;
+					&nbsp;&nbsp;&nbsp;&nbsp;<b>Age :</b>&nbsp;
 					<input type="text" pattern="\d*" min="21" max="60" name="DOBfrom" size=2 maxlength="2" />&nbsp;
-					To&nbsp;
+					<b>To</b>&nbsp;
 					<input type="text" pattern="\d*" min="21" max="60" name="DOBto" size=2 maxlength="2" />
 					<!--<select name="sign">
 					<option>--</option>
@@ -62,7 +67,7 @@ if( ! isset($_SESSION['clientid']) )
 					<option>></option>
 					<option><</option>
 					</select>&nbsp;<input type="text" name="age" size=2 maxlength=2 />-->
-					<br/><br/>Educational Attainment :
+					<br/><br/><b>Educational Attainment : </b>
 					<select name="educational_attainment">
 					<option>--</option>
 					<?php
@@ -73,6 +78,13 @@ if( ! isset($_SESSION['clientid']) )
 					}
 					?>
 					</select>
+					&nbsp;&nbsp;&nbsp;&nbsp;<b>Years of Experience :</b>&nbsp;
+					<input type="text" name="Years_of_experience" size=2 maxlength="2" />&nbsp;
+					
+					
+				
+				
+					
 				</p>
 				
 				<p><input type="submit" name="btnSearch" value="Search" /></p>
@@ -87,6 +99,7 @@ if( ! isset($_SESSION['clientid']) )
 					<th>Age</th>
 					<th>Educational Attainment</th>
 					<!--<th>Date Of Birth</th>-->
+					<th>Years of Experience </th>
 					</tr>
 				</thead>
 				<tbody>
@@ -112,6 +125,7 @@ if( ! isset($_SESSION['clientid']) )
 					echo '<td>' . $diff->y . '</td>';
 					echo '<td>' . Status::get_status_name( $row->educational_attainment )->status . '</td>';
 					// echo '<td>' . date('Y-m-d', strtotime( $row->date_of_birth )) . '</td>';
+					echo '<td>' . $row->Years_of_experience . '</td>';
 					echo '</tr>';
 				}
 			else{

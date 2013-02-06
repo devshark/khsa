@@ -22,8 +22,9 @@
 	</ul>
 	<?php }elseif ( $auth->type =='operation' ) { ?>
 	<ul class="ul-menu three">
-		<li><a href="op.index.php">Home</a></li>
-		<li><a href="logistics.inventory.php">Something</a></li>
+		<li><a href="admin.index.php">Home</a></li>
+		<li><a href="">DDO</a></li>
+		<li><a href="">MDR</a></li>
 		<li><a href="logout.php?url=admin.php">Logout</a></li>
 	</ul>
 	<?php } ?>

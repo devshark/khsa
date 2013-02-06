@@ -5,6 +5,7 @@ if( count($_POST) > 0 )
 	if( empty($_POST['last_name']) ){ die( json_encode( array( 'status'=>'failed', 'message'=>'Last name required.') ) ); }
 	if( empty($_POST['middle_name']) ){ die( json_encode( array( 'status'=>'failed', 'message'=>'Middle name required.') ) ); }
 	if( empty($_POST['first_name']) ){ die( json_encode( array( 'status'=>'failed', 'message'=>'First name required.') ) ); }
+	if( empty($_POST['Gender']) ){ die( json_encode( array( 'status'=>'failed', 'message'=>'Gender required.') ) ); }
 	if( empty($_POST['address']) ){ die( json_encode( array( 'status'=>'failed', 'message'=>'Address required.') ) ); }
 	if( empty($_POST['address_city']) ){ die( json_encode( array( 'status'=>'failed', 'message'=>'Address city required.') ) ); }
 	if( empty($_POST['mobile_num']) ){ die( json_encode( array( 'status'=>'failed', 'message'=>'Mobile number required.') ) ); }

@@ -14,7 +14,10 @@
 	</tr>
 	<tr>
 	<td>Gender : </td>
-	<td></td>
+	<td><select name="Gender">
+	<option>M</option>
+	<option>F</option>
+	</select></td>
 	</tr>
 	<tr>
 	<td>Address : </td>
