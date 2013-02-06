@@ -1,6 +1,6 @@
 <?php
+error_reporting(E_ERROR | E_WARNING);
 session_start();
-
 // if(! isset($_SESSION['adminid']) )
 	// die('Invalid request.');
 

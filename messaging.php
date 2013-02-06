@@ -109,7 +109,8 @@
 					'dataType':'json',
 					'success':function(response){
 						$.each(response, function(clientid,val){
-							$('div#body section#recent .contact:not(.unread)').each(function(i,element){
+							$('div#body section#recent .contact:not(.unread):not(.hidden)').each(function(i,element){
+								// console.log( $(element).attr('var') );
 								if( $(element).attr('var') == clientid){
 									var clone = $(element).clone();
 									$(element).remove();
@@ -117,11 +118,6 @@
 									$('div#body section#recent').prepend(clone);
 								}
 							});
-							// var div = $('div#body section#recent .contact[var='+id+']')
-							// .first();
-							// var clone = div.clone();
-							// div.remove();
-							// $('div#body section#recent').prepend(clone.addClass('unread'));
 						});
 					}
 				});
@@ -166,7 +162,7 @@
 	<body>
 		<div id="body">
 			<section id="recent">
-				<div class="contact hidden" var="2">
+				<div class="contact hidden" var="1">
 					<span class="name">Name1</span>
 					<!--<span class="last_message">Message1</span>-->
 				</div>
