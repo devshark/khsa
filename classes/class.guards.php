@@ -26,6 +26,10 @@ class Guard
 	{
 		$where = array();
 		$db = new Database();
+		if(is_numeric($post['Years_of_experience']))
+		{
+			$where['Years_of_experience'] = $post['Years_of_experience'];
+		}
 		if($post['address_city'] != '--')
 		{
 			$where['address_city'] = $post['address_city'];

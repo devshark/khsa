@@ -129,7 +129,7 @@ if( ! isset($_SESSION['clientid']) )
 					echo '</tr>';
 				}
 			else{
-				echo '<tr><td align="center" colspan=5>NO DATA</td></tr>';
+				echo '<tr><td align="center" colspan=6>NO DATA</td></tr>';
 			}
 			?>
 				</tbody>
