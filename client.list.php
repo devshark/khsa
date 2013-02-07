@@ -10,9 +10,9 @@
 		<script src="js/jquery-ui-1.10.0.custom.min.js"></script>
 		<script>
 		$(function() {
-		$( "#tabs" ).tabs();
+			$( "#tabs" ).tabs();
 		});
-</script>
+		</script>
 	</head>
 	<body>
 		<div id="body">
@@ -26,12 +26,13 @@
 			</ul>
 			<div id="tabs-1">
 			<?php include_once('static/header.php');?>
-		<?php include_once('static/nav.php');?>
+			<?php include_once('static/nav.php');?>
 			<table width="300" align="center" class = "home_page" >
 			<tr>
-			<td colspan="3" align="center" style="font:Verdana, Geneva, sans-serif; font-size:18px;  color:#0000FF;"><h3>List of Security Guards</h3>
-		</td>
-		</tr>
+			<td colspan="3" align="center" style="font:Verdana, Geneva, sans-serif; font-size:18px;  color:#0000FF;">
+				<h3>List of Security Guards</h3>
+			</td>
+			</tr>
 			<h4> You can search it by:</h4>
 			<?php
 			include_once('classes/class.guards.php');
@@ -83,7 +84,7 @@
 					?>
 					</select><br><br>
 					<b>Years of Experience :</b>&nbsp;
-					<input type="text" name="Years_of_experience" size=2 maxlength="2" />&nbsp;
+					<input type="text" name="Years_of_experience" pattern="\d*" size=2 maxlength="2" />&nbsp;
 				</p>
 				
 				<p><input type="submit" name="btnSearch" value="Search" /></p>
