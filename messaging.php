@@ -24,14 +24,15 @@
 				border:1px solid #000;
 				padding:20px;
 				cursor:pointer;
+				background-color:#C6DEFF;
 			}
-			div#body section#recent .current{
+			div#body section#recent .unread{
 				background-color:#627bae;
 				color:#fff;
 			}
-			div#body section#recent .unread{
-				background-color:#ebeef4;
-				color:#333;
+			div#body section#recent .current{
+				background-color:#5CB3FF;
+				color:#fff;
 			}
 			div#body section#recent .contact span.name{
 				display:block;

@@ -58,10 +58,26 @@ class Guard
 		}
 	}
 	
-	public static function get_list()
+	public static function get_name( $guardid )
 	{
 		$db = new Database();
-		return $db->get(Guard::TABLENAME)->result();
+		$row = $db->get_where(Guard::TABLENAME, array('id'=>$guardid))->row();
+		return $row->first_name.' '.$row->last_name;
+	}
+	
+	public static function get_list( $statuses = null )
+	{
+		$db = new Database();
+		$sql = '';
+		if( $statuses )
+		{
+			$sql = "select * from ".Guard::TABLENAME." where guard_status in({$statuses});";
+		}
+		else
+		{
+			$sql = "select * from ".Guard::TABLENAME;
+		}
+		return $db->query($sql)->result();
 	}
 	
 	public static function get_locations()
@@ -79,6 +95,13 @@ class Guard
 	public static function get_educs()
 	{
 		return Status::educ_status();
+	}
+	
+	public static function get_xp($guardid)
+	{
+		$db = new Database();
+		return $db->get_where('tbljobhistory',
+			array('guard_id'=>$guardid))->result();
 	}
 	
 	public function __tostring()

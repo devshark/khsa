@@ -1,6 +1,6 @@
 <?php 
 	require 'pages/admin.redirect.php';
-	require_once('classes/class.client.php');
+	require_once('classes/class.clientguard.php');
 	require_once('classes/class.audit.php');
 	Audit::audit_log($_SESSION['adminid'], 'Went to Admin Client page');
 ?>
@@ -15,9 +15,16 @@
 		<script src="js/jquery-1.9.0.js"></script>
 		<script src="js/jquery-ui-1.10.0.custom.min.js"></script>
 		<script>
+		$(function() {
+		$( "#tabs" ).tabs();
+		});
+		</script>
+		
+		<script>
 		$(function(){
 			$('button#addnew')
-			.click(function(){
+			.click(function(ev){
+				ev.preventDefault();
 				$('<div>')
 				.attr('id','newclient')
 				.load('form.newclient.html')
@@ -28,6 +35,49 @@
 							$('div#newclient form').trigger('submit');
 							// $(this).dialog('close');
 						}
+					},
+					close: function(ev, ui) { $(this).remove(); }
+				});
+			});
+			$('button#NewAssign')
+			.click(function(ev){
+				ev.preventDefault();
+				$('<div>')
+				.attr('id','assign')
+				.load('ajax.assign.php')
+				.dialog({
+					'title':'New Guard Assign',
+					'width':'430px',
+					'buttons':{
+						'Finalize':function(e){
+							// $('div#assign form').trigger('submit');
+							var maxLength = $('table#assigned tbody tr').length;
+							// console.log(maxLength);
+							$('table#assigned tbody tr')
+							.each(function(id, elem){
+								// console.log(id);
+								var client = $(elem).children('td.C').attr('var');
+								var guard = $(elem).children('td.G').attr('var');
+								$.when( $.post('ajax.client.assign.php',
+								{clientid:client, guardid:guard},
+								function(data){
+									data = $.parseJSON( data );
+									if(data.status == 'success'){
+										console.log('success');
+									}else{
+										console.log(data.message);
+									}
+								}) )
+								.done(function(data){
+									if( id + 1 == maxLength ){
+										window.location.href=window.location.href;
+										// console.log('equal');
+									}
+								});
+							})
+							// $(this).dialog('close');
+						},
+						'Cancel':function(e){ $(this).dialog('close'); }
 					},
 					close: function(ev, ui) { $(this).remove(); }
 				});
@@ -89,7 +139,14 @@
 	<?php include_once('static/header.admin.php');?>
 	<?php include_once('static/nav.admin.php');?>
 	<div id="content">
+		<div id="tabs">
+		<ul>
+				<li><a href="#tabs-1">Client List</a></li>
+				<li><a href="#tabs-2">Assigned Guard</a></li>
+		</ul>
+	<div id="tabs-1">
 	<table width="300" align="center" class = "home_page" >
+	
 		<tr>
 			<td colspan="3" align="center" style="font:Verdana, Geneva, sans-serif; font-size:18px;  color:#0000FF;"><h3>List of Clients</h3>
 		</td>
@@ -123,13 +180,54 @@
 		<tr>
 		<td><button id="addnew">Add New</button></td>
 		</tr>
-    </table>
-	</div>	
+	 </table>
+	</div>
+	
+		<div id="tabs-2">
+	<table width="300" align="center" class = "home_page" >
+	
+		<tr>
+			<td colspan="3" align="center" style="font:Verdana, Geneva, sans-serif; font-size:18px;  color:#0000FF;"><h3>List of Client and Assigned Guard</h3>
+		</td>
+		</tr>
+		<tr>
+		<td height="5px">
+		</td>
+		</tr>
+		<tr style="width:100%;" align="center">
+		<td width="100%">
+			<table id="jquery" cellpadding=5 border=1 cellspacing=0 style="width:500px; background-color:transparent; border:0px  #000 solid; padding:5px;text-align:center;">
+				<thead>
+					<tr>
+					<th>Client Name</th><th>Assigned Guard</th><th>Equipment</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach(Deployment::get_list() as $deploy){?>
+					<tr>
+					<td><span><?php echo Client::get_name( $deploy->clientid );?></span></td>
+					<td><span><?php echo Guard::get_name( $deploy->guardid );?></span></td>
+					<td><span><?php echo $deploy->equipment_id;?></span></td>
+					</tr>
+					<?php } ?>
+				</tbody>
+			</table>
+		</td>
+		</tr>
+		<tr>
+		<td><button id="NewAssign">Add New</button></td>
+		</tr>
+	 </table>
+	</div>
+	
+</div>	
+
+
+	
+	</body>
 	<div align="center">
 		Copyright 2013 <br/>
 		King Henry Security Agency<br />
 		Integrated Information System
 	</div>
-	</div>
-	</body>
 </html>

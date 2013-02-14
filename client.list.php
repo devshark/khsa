@@ -21,9 +21,10 @@
 			<div id="content">
 			<div id="tabs">
 			<ul>
-				<li><a href="#tabs-1">Guard List</a></li>
+				<?php if(isset($_SESSION['clientid'])) { ?><li><a href="#tabs-1">Guard List</a></li><?php } ?>
 				<li><a href="#tabs-2">Client List</a></li>
 			</ul>
+		<?php if(isset($_SESSION['clientid'])) { ?>
 			<div id="tabs-1">
 			<?php include_once('static/header.php');?>
 		<?php include_once('static/nav.php');?>
@@ -134,6 +135,7 @@
 				</tbody>
 			</table>
 			</div>
+			<?php } ?>
 			<div id="tabs-2">
 			<ul>
 			<?php

@@ -1,14 +1,14 @@
 		body{
-			background-attachment: fixed;
-			background-image: url("../images/bg.jpg");
-		}
-		body{
+			/*background-attachment: fixed;
+			background-image: url("../images/bg.jpg");*/
+			background: -moz-linear-gradient(center top , #92C7C7, #307D7E) repeat scroll 0 0 transparent;
+			background: -webkit-gradient(linear, center top, center bottom, from(#92C7C7), to(#307D7E));
 			font-family: Arial,Helvetica,sans-serif;
 			font-size: 12px;
 			color:#382D2C;
 		}
 		div#body{
-			width:820px;
+			width:1000px;
 			margin:auto;
 		}
 		div#header{
@@ -62,4 +62,19 @@
 		}
 		nav#sidebar .box{
 			margin-bottom:10px;
+		}
+		footer{
+			width:100%;
+			margin:auto;
+			text-align: center;
+			clear:both;
+		}
+		table tbody tr:nth-child(even){
+			background: none repeat scroll 0 0 #DFDFDF;
+		}
+		table tbody tr:nth-child(odd){
+			background: none repeat scroll 0 0 #FFFFFF;
+		}
+		dl dt{
+			background: none repeat scroll 0 0 #DFDFDF;
 		}

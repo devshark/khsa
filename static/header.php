@@ -1,6 +1,6 @@
 <?php @session_start();?>
 			<div id="header">
-				<img class="header_image" width="810" src="images/banner.png" />
+				<center><img class="header_image" width="810" src="images/banner.png" /></center>
 				<ul class="ul-menu <?php echo $_SESSION['clientid'] ? 'five' : '';?>">
 					<li><a href="index.php">Home</a></li>
 					<li><a href="company_profile.php">Company Profile</a></li>

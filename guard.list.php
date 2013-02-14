@@ -80,11 +80,6 @@ if( ! isset($_SESSION['clientid']) )
 					</select>
 					&nbsp;&nbsp;&nbsp;&nbsp;<b>Years of Experience :</b>&nbsp;
 					<input type="text" name="Years_of_experience" size=2 maxlength="2" />&nbsp;
-					
-					
-				
-				
-					
 				</p>
 				
 				<p><input type="submit" name="btnSearch" value="Search" /></p>

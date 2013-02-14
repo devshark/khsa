@@ -117,6 +117,7 @@
 			<table id="jquery" cellpadding=5 border=1 cellspacing=0 style="width:500px; background-color:transparent; border:0px  #000 solid; padding:5px;text-align:center;">
 				<thead>
 					<tr>
+					<th>Equipment ID</th>
 					<th>Equipment Description</th>
 					<th>Equipment Serial No.</th>
 					<th>Manufacturer Name</th>
@@ -128,6 +129,7 @@
 				<tbody>
 					<?php foreach(Equipment::get_list() as $equip){?>
 					<tr id="<?php echo $equip->Equipment_ID;?>">
+					<td><?php echo $equip->Equipment_ID;?></td>
 					<td var="Equipment_Desc"><span><?php echo $equip->Equipment_Desc;?></span></td>
 					<td var="Equipment_Serial_No"><span><?php echo $equip->Equipment_Serial_No;?></span></td>
 					<td var="Manufacturer_ID" class="manu"><span><?php echo (Manufacturer::get_name($equip->Manufacturer_ID)) ;?></span></td>

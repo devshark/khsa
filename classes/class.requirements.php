@@ -42,4 +42,11 @@ class Req
 		}
 		return $guards;
 	}
+	
+	public static function get_req_status( $guardid ){
+		$sql = "select * from view_pendingrequirements where guard_id={$guardid};";
+		$db = new Database();
+		return $db->query($sql)->num_rows() > 0 ? 'Pending' : 'Complete';
+	}
+	
 }

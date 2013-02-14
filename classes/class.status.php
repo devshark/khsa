@@ -25,6 +25,13 @@ class Status
 			array('type'=>'educ'))->result();
 	}
 	
+	public static function hire_status()
+	{
+		$db = new Database();
+		return $db->get_where(Status::TABLENAME,
+			array('type'=>'hire'))->result();
+	}
+	
 	public static function get_status_name($id)
 	{
 		$db = new Database();

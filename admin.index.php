@@ -60,12 +60,8 @@
          </td>
         </tr>
     </table>
-	</div>		
-	<div align="center">
-		Copyright 2013 <br/>
-		King Henry Security Agency<br />
-		Integrated Information System
 	</div>
 	</div>
+	<?php include_once('static/footer.php'); ?>
 	</body>
 </html>
