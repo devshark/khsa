@@ -132,7 +132,8 @@
 				// $('div#body section#thread').empty();
 				// $('div#body section#thread').prepend($('<img src="ajax/ajax-loader.gif" align="center" />').addClass('loader'));
 			}
-			var stop = function(param1){
+			var stop = function(param1)
+			{
 				$('div#loading-message').hide('slow');
 				// console.log(param1);
 				// $('div#body section#thread').removeClass('dim');
@@ -141,7 +142,8 @@
 			$(document)
 			.on('click',
 			'div#body section#recent .contact',
-			function(event){
+			function(event)
+			{
 				$this = $(this);
 				$this.siblings().removeClass('current');
 				$this.addClass('current');

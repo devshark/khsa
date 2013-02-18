@@ -1,6 +1,7 @@
 <?php 
 	require 'pages/admin.redirect.php';
 	require_once('classes/class.clientguard.php');
+	require_once('classes/class.equipments.php');
 	require_once('classes/class.audit.php');
 	Audit::audit_log($_SESSION['adminid'], 'Went to Admin Client page');
 ?>
@@ -58,7 +59,7 @@
 								// console.log(id);
 								var client = $(elem).children('td.C').attr('var');
 								var guard = $(elem).children('td.G').attr('var');
-								$.when( $.post('ajax.client.assign.php',
+								$.when( $.post('ajax.assign.save.php',
 								{clientid:client, guardid:guard},
 								function(data){
 									data = $.parseJSON( data );
@@ -69,6 +70,7 @@
 									}
 								}) )
 								.done(function(data){
+									// console.log('done');
 									if( id + 1 == maxLength ){
 										window.location.href=window.location.href;
 										// console.log('equal');
@@ -205,9 +207,9 @@
 				<tbody>
 					<?php foreach(Deployment::get_list() as $deploy){?>
 					<tr>
-					<td><span><?php echo Client::get_name( $deploy->clientid );?></span></td>
-					<td><span><?php echo Guard::get_name( $deploy->guardid );?></span></td>
-					<td><span><?php echo $deploy->equipment_id;?></span></td>
+					<td><?php echo Client::get_name( $deploy->clientid );?></td>
+					<td><?php echo Guard::get_name( $deploy->guardid );?></td>
+					<td><?php echo Equipment::compile_sdetails( $deploy->id ) ?: 'No Issued Equipment';?></td>
 					</tr>
 					<?php } ?>
 				</tbody>

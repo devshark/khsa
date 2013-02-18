@@ -39,6 +39,28 @@ and tblequip.equipment_id={$this->equipid}";
 		return $db->get(Equipment::$TABLENAME)->result();
 	}
 	
+	public static function get_equipments_by_deployid( $deployid )
+	{
+		$db = new Database();
+		return $db->get_where('tblassignequip',
+			array('deploy_id'=>$deployid))->result();
+	}
+	
+	public static function compile_by_deployid( $deployid )
+	{
+		return self::compile_equip_deploy( self::get_equipments_by_deployid( $deployid ) );
+	}
+	
+	public static function compile_equip_deploy( $deploy )
+	{
+		$str = '';
+		foreach( $deploy as $d )
+		{
+			$str .= self::compile_sdetails( $d->equipment_id ) . ',';
+		}
+		return $str;
+	}
+	
 	public static function s_get_details( $equip_id )
 	{
 		return (new Equipment($equip_id))->get_details();
@@ -46,9 +68,12 @@ and tblequip.equipment_id={$this->equipid}";
 	public static function compile_sdetails( $equip_id )
 	{
 		$row = Equipment::s_get_details( $equip_id );
-		if( count($row) > 0 ){
+		if( count($row) > 0 )
+		{
 			return $row->Equipment_Desc . '('.$row->Equipment_Serial_No .')'.($row->Ammo_quantity != null ? ' Ammo ' . $row->Ammo_quantity : '');
-		}else{
+		}
+		else
+		{
 			return '';
 		}
 	}

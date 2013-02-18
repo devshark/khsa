@@ -97,6 +97,9 @@
 		<tr>
 		<td><button id="addnew">Add New</button></td>
 		</tr>
+		<tr>
+		<td><a href="reports.guards.php">Export to Excel</a></td>
+		</tr>
     </table>
 	</div>
 

@@ -71,7 +71,7 @@ class Guard
 		$sql = '';
 		if( $statuses )
 		{
-			$sql = "select * from ".Guard::TABLENAME." where guard_status in({$statuses});";
+			$sql = "select * from ".Guard::TABLENAME." where guard_status in({$statuses});"; 
 		}
 		else
 		{

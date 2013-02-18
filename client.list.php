@@ -90,10 +90,11 @@
 				
 				<p><input type="submit" name="btnSearch" value="Search" /></p>
 			</form>
-			
+			<form method="post" action="comments.php">
 			<table border=1 cellspacing=0 cellpadding=5>
 				<thead>
 					<tr>
+					<th>Choose</th>
 					<th>Name</th>
 					<th>Location</th>
 					<th>Gender</th>
@@ -120,12 +121,13 @@
 					$ref = new DateTime($row->date_of_birth);
 					$diff = $now->diff($ref);
 					echo '<tr>';
+					echo '<td><input type =checkbox name =guardname[] value = '.$row->id.'>';
 					echo '<td>' . $row->last_name . ' ' . $row->first_name . '</td>';
 					echo '<td>' . $row->address_city . '</td>';
 					echo '<td>' . $row->Gender . '</td>';
 					echo '<td>' . $diff->y . '</td>';
 					echo '<td>' . Status::get_status_name( $row->educational_attainment )->status . '</td>';
-					// echo '<td>' . date('Y-m-d', strtotime( $row->date_of_birth )) . '</td>';
+					// echo '<td>' . date('Y-m-d', strtot	ime( $row->date_of_birth )) . '</td>';
 					echo '<td>' . $row->Years_of_experience . '</td>';
 					echo '</tr>';
 				}
@@ -134,7 +136,19 @@
 			}
 			?>
 				</tbody>
+				<tr>
+					<td>
+						&nbsp;
+					</td>
+					<td>
+						<input type = 'submit' name ='interview' value ='FOR INTERVIEW'>
+					</td>
+					<td>
+						<input type = 'submit' name ='deployment' value ='FOR DEPLOYMENT'>
+					</td>
+				</tr>
 			</table>
+			</form>
 			</div>
 			<?php } ?>
 			<div id="tabs-2">
