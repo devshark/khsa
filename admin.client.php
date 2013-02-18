@@ -216,6 +216,9 @@
 			</table>
 		</td>
 		</tr>
+		<tr>
+		<td><button id="Add New"></button></td>
+		</tr>
 	 </table>
 	</div>
 	

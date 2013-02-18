@@ -58,7 +58,7 @@ and tblequip.equipment_id={$this->equipid}";
 		{
 			$str .= self::compile_sdetails( $d->equipment_id ) . ',';
 		}
-		return $str;
+		return substr( $str, 0, -1 );
 	}
 	
 	public static function s_get_details( $equip_id )
