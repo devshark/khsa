@@ -1,4 +1,6 @@
-<?php 
+<?php
+ini_set('display_errors','On');
+error_reporting(E_ALL);
 	require 'pages/admin.redirect.php';
 	require_once('classes/class.clientguard.php');
 	require_once('classes/class.equipments.php');
@@ -24,8 +26,7 @@
 		<script>
 		$(function(){
 			$('button#addnew')
-			.click(function(ev){
-				ev.preventDefault();
+			.click(function(){
 				$('<div>')
 				.attr('id','newclient')
 				.load('form.newclient.html')
@@ -36,50 +37,6 @@
 							$('div#newclient form').trigger('submit');
 							// $(this).dialog('close');
 						}
-					},
-					close: function(ev, ui) { $(this).remove(); }
-				});
-			});
-			$('button#NewAssign')
-			.click(function(ev){
-				ev.preventDefault();
-				$('<div>')
-				.attr('id','assign')
-				.load('ajax.assign.php')
-				.dialog({
-					'title':'New Guard Assign',
-					'width':'430px',
-					'buttons':{
-						'Finalize':function(e){
-							// $('div#assign form').trigger('submit');
-							var maxLength = $('table#assigned tbody tr').length;
-							// console.log(maxLength);
-							$('table#assigned tbody tr')
-							.each(function(id, elem){
-								// console.log(id);
-								var client = $(elem).children('td.C').attr('var');
-								var guard = $(elem).children('td.G').attr('var');
-								$.when( $.post('ajax.assign.save.php',
-								{clientid:client, guardid:guard},
-								function(data){
-									data = $.parseJSON( data );
-									if(data.status == 'success'){
-										console.log('success');
-									}else{
-										console.log(data.message);
-									}
-								}) )
-								.done(function(data){
-									// console.log('done');
-									if( id + 1 == maxLength ){
-										window.location.href=window.location.href;
-										// console.log('equal');
-									}
-								});
-							})
-							// $(this).dialog('close');
-						},
-						'Cancel':function(e){ $(this).dialog('close'); }
 					},
 					close: function(ev, ui) { $(this).remove(); }
 				});
@@ -95,7 +52,7 @@
 					if(result.status == 'success'){
 						alert(result.message);
 						$form.parent('div#newclient').remove();
-						window.location.href = 'admin.client.php';
+						window.location.href = window.location.href;
 					}else{
 						alert(result.message);
 					}
@@ -111,18 +68,26 @@
 		});
 		$(document).on('blur','form#jap',
 			function(event){
-			$.post('ajax.client.save.php', 
+			var description = $(this).children('input[type=text]').val();
+			$.post('ajax.equip.save.php', 
 			{
-			'value' : $(this).children('input[type=text]').val(),
-			'name' : $(this).children('input[type=text]').prop('name'),
-			'id' : $(this).children('input[type=hidden]').val()
+			equips : $(this).children('input[type=text]').val(),
+			id : $(this).children('input[type=hidden]').val()
 			},
 			function(data){
 				data = $.parseJSON(data);
-				// alert(data.status);
+				if(data.status == 'success'){
+					description = data.message;
+					console.log(data.message);
+					var span = $('<span></span>').text( description );
+					$(this).parent('td').prepend(span);
+					$(this).remove();
+				}else{
+					alert(data.message);
+				}
+				window.location.href = window.location.href;
 			});
-		
-			var span = $('<span></span>').text( $(this).children('input[type=text]').val() );
+			var span = $('<span></span>').text( description );
 			$(this).parent('td').prepend(span);
 			$(this).remove();
 		});
@@ -143,49 +108,10 @@
 	<div id="content">
 		<div id="tabs">
 		<ul>
-				<li><a href="#tabs-1">Client List</a></li>
-				<li><a href="#tabs-2">Assigned Guard</a></li>
+				<li><a href="#tabs-1">Assigned Guard</a></li>
 		</ul>
-	<div id="tabs-1">
-	<table width="300" align="center" class = "home_page" >
 	
-		<tr>
-			<td colspan="3" align="center" style="font:Verdana, Geneva, sans-serif; font-size:18px;  color:#0000FF;"><h3>List of Clients</h3>
-		</td>
-		</tr>
-		<tr>
-		<td height="5px">
-		</td>
-		</tr>
-		<tr style="width:100%;" align="center">
-		<td width="100%">
-			<table id="jquery" cellpadding=5 border=1 cellspacing=0 style="width:500px; background-color:transparent; border:0px  #000 solid; padding:5px;text-align:center;">
-				<thead>
-					<tr>
-					<th>Client Name</th><th>Address</th><th>Contact num</th><th>Contact Person</th><th>Owner</th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php foreach(Client::get_list() as $client){?>
-					<tr id="<?php echo $client->Client_ID;?>">
-					<td var="Client_Name"><span><?php echo $client->Client_Name;?></span></td>
-					<td var="Address"><span><?php echo $client->Address;?></span></td>
-					<td var="Contact_No"><span><?php echo $client->Contact_No;?></span></td>
-					<td var="Contact_Person"><span><?php echo $client->Contact_person;?></span></td>
-					<td var="Owner"><span><?php echo $client->Owner;?></span></td>
-					</tr>
-					<?php } ?>
-				</tbody>
-			</table>
-		</td>
-		</tr>
-		<tr>
-		<td><button id="addnew">Add New</button></td>
-		</tr>
-	 </table>
-	</div>
-	
-		<div id="tabs-2">
+		<div id="tabs-1">
 	<table width="300" align="center" class = "home_page" >
 	
 		<tr>
@@ -206,10 +132,10 @@
 				</thead>
 				<tbody>
 					<?php foreach(Deployment::get_list() as $deploy){?>
-					<tr>
+					<tr id="<?php echo $deploy->id;?>">
 					<td><?php echo Client::get_name( $deploy->clientid );?></td>
 					<td><?php echo Guard::get_name( $deploy->guardid );?></td>
-					<td><?php echo Equipment::compile_by_deployid( $deploy->id ) ?: 'No Issued Equipment';?></td>
+					<td><span><?php echo Equipment::compile_by_deployid( $deploy->id ) ?: 'No Issued Equipment';?></span></td>
 					</tr>
 					<?php } ?>
 				</tbody>
